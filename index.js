@@ -275,7 +275,7 @@ app.get('/test', (req, res) => {
 	var sessionid = 'Ur' + Math.random();
 	res.setHeader('Content-Type', 'text/html');
 	res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
-	res.writeHead(200, {'Set-Cookie': 'SESSIONID=' + sessionid + ';'});
+	res.setHeader('Set-Cookie', 'SESSIONID=' + sessionid + ';');
 	res.end(`test test `);
 });
 
