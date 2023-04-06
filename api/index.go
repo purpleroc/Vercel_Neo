@@ -11,8 +11,6 @@ import (
 	"net/http"
 	"sync"
 	"time"
-
-	. "github.com/tbxark/g4vercel"
 )
 
 var (
@@ -176,7 +174,7 @@ func (sess *session) Close() {
 	sess.closed = true
 }
 
-func neoreg(w http.ResponseWriter, r *http.Request) {
+func Handler(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 
 	defer r.Body.Close()
@@ -256,29 +254,4 @@ func neoreg(w http.ResponseWriter, r *http.Request) {
 		fmt.Fprintf(w, "%s", hello)
 	}
 
-}
-
-func Handler(w http.ResponseWriter, r *http.Request) {
-	server := New()
-	server.Use(Recovery(func(err interface{}, c *Context) {
-		if httpError, ok := err.(HttpError); ok {
-			c.JSON(httpError.Status, H{
-				"message": httpError.Error(),
-			})
-		} else {
-			message := fmt.Sprintf("%s", err)
-			c.JSON(500, H{
-				"message": message,
-			})
-		}
-	}))
-	server.GET("/", func(context *Context) {
-		context.JSON(200, H{
-			"message": "OK",
-		})
-	})
-	server.GET("/proxy", func(context *Context) {
-		neoreg(w, r)
-	})
-	server.Handle(w, r)
 }
