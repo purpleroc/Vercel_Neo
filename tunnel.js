@@ -237,4 +237,6 @@ var server=http.createServer(function (req, res) {
 
 });
 
-server.listen(80, '0.0.0.0');
+console.log('run on 3001')
+server.listen(3001, '0.0.0.0');
+console.log('stared')

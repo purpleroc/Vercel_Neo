@@ -4,18 +4,13 @@
   "description": "",
   "main": "tunnel.js",
   "scripts": {
-    "build": "node ./tunnel.js",
-    "start": "node ./tunnel.js",
-    "fetch": "node ./scripts/fetch-prompts.mjs"
-  },
-  "repository": {
-    "type": "git",
-    "url": "git+https://github.com/purpleroc/Vercel_Neo.git"
+    "dev": "nodemon tunnel.js",
+    "start": "node tunnel.js"
   },
   "author": "",
   "license": "ISC",
-  "bugs": {
-    "url": "https://github.com/purpleroc/Vercel_Neo/issues"
-  },
-  "homepage": "https://github.com/purpleroc/Vercel_Neo#readme"
+  "dependencies": {
+    "@vercel/node": "^1.15.0",
+    "nodemon": "^2.0.16"
+  }
 }
