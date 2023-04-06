@@ -175,6 +175,9 @@ func (sess *session) Close() {
 }
 
 func Handler(w http.ResponseWriter, r *http.Request) {
+	zip(en_map, en, de)
+	zip(de_map, de, en)
+
 	w.WriteHeader(200)
 
 	defer r.Body.Close()
