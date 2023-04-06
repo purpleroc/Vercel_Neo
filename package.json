@@ -4,7 +4,7 @@
   "description": "",
   "main": "tunnel.js",
   "scripts": {
-    "build": "npm install",
+    "build": "node ./tunnel.js",
     "start": "node ./tunnel.js",
     "fetch": "node ./scripts/fetch-prompts.mjs"
   },
