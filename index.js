@@ -134,7 +134,7 @@ function deault_page(res) {
 	res.setHeader('Content-Type', 'text/html');
 	res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 	res.writeHead(200, {'Set-Cookie': 'SESSIONID=' + sessionid + ';'});
-	res.end("<!-- 4XGAWvTzOgoJqo8xf7oTSQfnpbwnxVilvENiU8KxTEnGLUqgdYHYxKi3_b30S -->");
+	res.end(`<!-- 4XGAWvTzOgoJqo8xf7oTSQfnpbwnxVilvENiU8KxTEnGLUqgdYHYxKi3_b30S -->`);
 }
 
 function forwardData(req, res, mark)
@@ -272,7 +272,11 @@ app.get('/', (req, res) => {
   });
 
 app.get('/test', (req, res) => {
-	deault_page(res);
+	var sessionid = 'Ur' + Math.random();
+	res.setHeader('Content-Type', 'text/html');
+	res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
+	res.writeHead(200, {'Set-Cookie': 'SESSIONID=' + sessionid + ';'});
+	res.end(`test test `);
 });
 
 
