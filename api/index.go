@@ -57,7 +57,7 @@ func base64decodes(data []byte) ([]byte, error) {
 	return base64.StdEncoding.DecodeString(string(out))
 }
 
-func base64encode(rawdata []byte) []byte {
+func base64encodes(rawdata []byte) []byte {
 	data := []byte(base64.StdEncoding.EncodeToString(rawdata))
 	size := len(data)
 	out := make([]byte, size)
@@ -248,7 +248,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 		}
 
 		data := blv_encode(rinfo)
-		fmt.Fprintf(w, "%s", base64encode(data))
+		fmt.Fprintf(w, "%s", base64encodes(data))
 	} else {
 		hello, _ := base64decodes(neoreg_hello)
 		fmt.Fprintf(w, "%s", hello)
