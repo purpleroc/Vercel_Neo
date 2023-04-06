@@ -195,7 +195,7 @@ function StrTr(input, frm, to){
 }
 
 
-app.all('/proxy', function (req, res) {
+app.all('/proxy', (req, res) => {
 
 	var old_header = req.headers;
 
@@ -270,6 +270,10 @@ app.get('/', (req, res) => {
 	res.setHeader('Cache-Control', 's-max-age=1, stale-while-revalidate');
 	res.end(`Hello!`);
   });
+
+app.get('/test', (req, res) => {
+	deault_page(res);
+});
 
 
 console.log('run on 3000')
