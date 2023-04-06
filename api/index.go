@@ -11,6 +11,8 @@ import (
 	"net/http"
 	"sync"
 	"time"
+
+	. "github.com/tbxark/g4vercel"
 )
 
 var (
@@ -174,11 +176,7 @@ func (sess *session) Close() {
 	sess.closed = true
 }
 
-func Handler(w http.ResponseWriter, r *http.Request) {
-	if r.URL.Path != "/api/proxy" {
-		http.Error(w, "404 not found.", http.StatusNotFound)
-		return
-	}
+func neoreg(w http.ResponseWriter, r *http.Request) {
 	w.WriteHeader(200)
 
 	defer r.Body.Close()
@@ -260,17 +258,27 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 
 }
 
-// func main() {
-//     if len(os.Args) != 2 {
-//         return
-//     }
-//     zip(en_map, en, de)
-//     zip(de_map, de, en)
-
-//     listen_addr := os.Args[1]
-//     if !strings.ContainsAny(listen_addr, ":") {
-//         listen_addr = ":" + listen_addr
-//     }
-//     http.HandleFunc("/", neoreg)
-//     http.ListenAndServe(listen_addr, nil)
-// }
+func Handler(w http.ResponseWriter, r *http.Request) {
+	server := New()
+	server.Use(Recovery(func(err interface{}, c *Context) {
+		if httpError, ok := err.(HttpError); ok {
+			c.JSON(httpError.Status, H{
+				"message": httpError.Error(),
+			})
+		} else {
+			message := fmt.Sprintf("%s", err)
+			c.JSON(500, H{
+				"message": message,
+			})
+		}
+	}))
+	server.GET("/", func(context *Context) {
+		context.JSON(200, H{
+			"message": "OK",
+		})
+	})
+	server.GET("/proxy", func(context *Context) {
+		neoreg(w, r)
+	})
+	server.Handle(w, r)
+}

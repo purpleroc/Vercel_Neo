@@ -1,8 +1,8 @@
 {
     "routes": [
       {
-        "src": "/",
-        "dest": "/api/proxy.go"
+        "src": "/(.*)",
+        "dest": "/api"
       }
     ]
   }
