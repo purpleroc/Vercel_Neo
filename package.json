@@ -1,0 +1,21 @@
+{
+  "name": "vercel_neo",
+  "version": "1.0.0",
+  "description": "",
+  "main": "tunnel.js",
+  "scripts": {
+    "build": "npm install",
+    "start": "node ./tunnel.js",
+    "fetch": "node ./scripts/fetch-prompts.mjs"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/purpleroc/Vercel_Neo.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/purpleroc/Vercel_Neo/issues"
+  },
+  "homepage": "https://github.com/purpleroc/Vercel_Neo#readme"
+}
